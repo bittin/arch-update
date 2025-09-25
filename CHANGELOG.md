@@ -2,6 +2,168 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v3.15.6](https://github.com/Antiz96/arch-update/releases/tag/v3.15.6) - 2025-09-11
+
+### Miscellaneous
+
+- *(i18n)* Add Spanish translation ([#421](https://github.com/Antiz96/arch-update/pull/421)) - ([120d80b](https://github.com/Antiz96/arch-update/commit/120d80b2f7c1cac9e60ced6c264f8922ae407d72)) by @djgs01
+
+## [v3.15.5](https://github.com/Antiz96/arch-update/releases/tag/v3.15.5) - 2025-09-07
+
+### Miscellaneous
+
+- *(i18n)* Add Brazilian Portuguese translation ([#419](https://github.com/Antiz96/arch-update/pull/419)) - ([97fa938](https://github.com/Antiz96/arch-update/commit/97fa93833d15bc32d1c9cebdc6a01b6d0ea915c1)) by @diegons490
+
+## [v3.15.4](https://github.com/Antiz96/arch-update/releases/tag/v3.15.4) - 2025-08-27
+
+### Fixes
+
+- *(notification)* Fix "Run Arch-Update" click action ([#417](https://github.com/Antiz96/arch-update/pull/417)) - ([28a6a8b](https://github.com/Antiz96/arch-update/commit/28a6a8b0c350525494860d1cd844751de8f10294)) by @Antiz96
+
+## [v3.15.3](https://github.com/Antiz96/arch-update/releases/tag/v3.15.3) - 2025-08-26
+
+### Fixes
+
+- *(news)* Add default timeout to the initial connection request ([#416](https://github.com/Antiz96/arch-update/pull/416)) - ([660d4dc](https://github.com/Antiz96/arch-update/commit/660d4dc4eee5808a8b0c9be49278f2f15dcbfab4)) by @Antiz96
+
+## [v3.15.2](https://github.com/Antiz96/arch-update/releases/tag/v3.15.2) - 2025-08-26
+
+### Fixes
+
+- Make lockfiles logic more robust ([#415](https://github.com/Antiz96/arch-update/pull/415)) - ([3454d97](https://github.com/Antiz96/arch-update/commit/3454d97cfd2b206f6d5342066a95cdee008ec033)) by @Antiz96
+
+## [v3.15.1](https://github.com/Antiz96/arch-update/releases/tag/v3.15.1) - 2025-08-25
+
+### Fixes
+
+- *(news)* Add a workaround for the current Arch Linux service outages ([#414](https://github.com/Antiz96/arch-update/pull/414)) - ([f8241f4](https://github.com/Antiz96/arch-update/commit/f8241f422ec7a34061923956fe35ab57be0177d3)) by @Antiz96
+
+### Documentation
+
+- *(deps)* Correct invalid link to extra repository for sudo-rs ([#409](https://github.com/Antiz96/arch-update/pull/409)) - ([4808155](https://github.com/Antiz96/arch-update/commit/480815523dc151758062b79fbca178707303f740)) by @Frestein
+- Update Tips & Tricks section to advise for "/bin/sh" rather than "sh" ([#412](https://github.com/Antiz96/arch-update/pull/412)) - ([06a2f81](https://github.com/Antiz96/arch-update/commit/06a2f8171076e1d0caf427ae697827ffa446d400)) by @Antiz96
+
+## [v3.15.0](https://github.com/Antiz96/arch-update/releases/tag/v3.15.0) - 2025-08-15
+
+### Features
+
+- Add support for sudo-rs ([#408](https://github.com/Antiz96/arch-update/pull/408)) - ([221fdbb](https://github.com/Antiz96/arch-update/commit/221fdbb96d37823efe796dbadfea19e4f98aa9e0)) by @Antiz96
+
+## [v3.14.1](https://github.com/Antiz96/arch-update/releases/tag/v3.14.1) - 2025-08-04
+
+### Fixes
+
+- *(news)* Make URL path parsing more robust ([#406](https://github.com/Antiz96/arch-update/pull/406)) - ([19fae5a](https://github.com/Antiz96/arch-update/commit/19fae5a7e9afa39522ca525cb1666e17a1ccdaf9)) by @Antiz96
+
+## [v3.14.0](https://github.com/Antiz96/arch-update/releases/tag/v3.14.0) - 2025-07-31
+
+### Features
+
+- *(systray)* Open upstream project URL in web browser when clicking on a package update entry ([#404](https://github.com/Antiz96/arch-update/pull/404)) - ([cb69c24](https://github.com/Antiz96/arch-update/commit/cb69c24497234524bbf3596c5ff5fe88d7844135)) by @ckorn
+
+## [v3.13.3](https://github.com/Antiz96/arch-update/releases/tag/v3.13.3) - 2025-07-24
+
+### Miscellaneous
+
+- Popularize the usage of the $name var ([#402](https://github.com/Antiz96/arch-update/pull/402)) - ([7dcae52](https://github.com/Antiz96/arch-update/commit/7dcae52d7a0f1f2629be2632055834763b78809d)) by @Antiz96
+
+## [v3.13.2](https://github.com/Antiz96/arch-update/releases/tag/v3.13.2) - 2025-07-18
+
+### Fixes
+
+- *(notification)* Switch to `systemd-run` to detach desktop notifications processes ([#401](https://github.com/Antiz96/arch-update/pull/401)) - ([4299cff](https://github.com/Antiz96/arch-update/commit/4299cff92457ea6b4d9f640e0eac32c97ad6e7de)) by @Antiz96
+
+## [v3.13.1](https://github.com/Antiz96/arch-update/releases/tag/v3.13.1) - 2025-07-17
+
+### Fixes
+
+- *(notification)* Fix updates count ([#399](https://github.com/Antiz96/arch-update/pull/399)) - ([a884b09](https://github.com/Antiz96/arch-update/commit/a884b09183ec908b4b12ff14fc544b94e01da841)) by @Antiz96
+
+## [v3.13.0](https://github.com/Antiz96/arch-update/releases/tag/v3.13.0) - 2025-07-16
+
+### Features
+
+- *(notification)* Add click actions to run Arch-Update and dismiss notifications ([#398](https://github.com/Antiz96/arch-update/pull/398)) - ([8164c27](https://github.com/Antiz96/arch-update/commit/8164c27d1b04e1e940bb42dfaa8b1da87670264d)) by @Antiz96
+
+## [v3.12.8](https://github.com/Antiz96/arch-update/releases/tag/v3.12.8) - 2025-07-13
+
+### Fixes
+
+- Skip kernel upgrade check if the kernel-modules-hook package is installed ([#397](https://github.com/Antiz96/arch-update/pull/397)) - ([15503b0](https://github.com/Antiz96/arch-update/commit/15503b0c76fcb2bceeae43b90e6544b36c04bc46)) by @ChrisTX
+
+## [v3.12.7](https://github.com/Antiz96/arch-update/releases/tag/v3.12.7) - 2025-07-05
+
+### Fixes
+
+- *(DiffProg)* Fix command parsing ([#392](https://github.com/Antiz96/arch-update/pull/392)) - ([47736ef](https://github.com/Antiz96/arch-update/commit/47736efb1bdd7cd0ea08eed5992cd5434901cd32)) by @Antiz96
+- *(DiffProg)* Fix value parsing ([#391](https://github.com/Antiz96/arch-update/pull/391)) - ([2685d81](https://github.com/Antiz96/arch-update/commit/2685d816df0b3f55b02c5a4c006f66521b363816)) by @Antiz96
+- *(kernel upgrade detection)* Expand skip condition to containers ([#390](https://github.com/Antiz96/arch-update/pull/390)) - ([d972461](https://github.com/Antiz96/arch-update/commit/d9724613e317f4f9913b73262494e18457fa728c)) by @Antiz96
+- Relax requirement checks ([#393](https://github.com/Antiz96/arch-update/pull/393)) - ([d06254e](https://github.com/Antiz96/arch-update/commit/d06254e36f197d13fbaba1f9527e11d34ac99f5c)) by @Antiz96
+
+### Miscellaneous
+
+- *(i18n)* Update translation files ([#394](https://github.com/Antiz96/arch-update/pull/394)) - ([efc67d5](https://github.com/Antiz96/arch-update/commit/efc67d5131f7abb53a6fa2350d8b0444bb949586)) by @Antiz96
+
+## [v3.12.6](https://github.com/Antiz96/arch-update/releases/tag/v3.12.6) - 2025-06-10
+
+### Documentation
+
+- *(deps)* Rename `doas` to `opendoas` ([#388](https://github.com/Antiz96/arch-update/pull/388)) - ([7baf6c1](https://github.com/Antiz96/arch-update/commit/7baf6c10fa554aa11eb23c221dd0987b8d15fa20)) by @Antiz96
+- *(deps)* Update dependencies list ([#387](https://github.com/Antiz96/arch-update/pull/387)) - ([8597eef](https://github.com/Antiz96/arch-update/commit/8597eef83a30321912ef7d6424c7f9118310a990)) by @Antiz96
+
+## [v3.12.5](https://github.com/Antiz96/arch-update/releases/tag/v3.12.5) - 2025-05-20
+
+### Fixes
+
+- *(check)* Ensure state files exist before being processed ([#385](https://github.com/Antiz96/arch-update/pull/385)) - ([97f7747](https://github.com/Antiz96/arch-update/commit/97f7747c7a2b617004737fa8ee1ac9184ebe984f)) by @Antiz96
+
+## [v3.12.4](https://github.com/Antiz96/arch-update/releases/tag/v3.12.4) - 2025-05-05
+
+### Fixes
+
+- *(systray)* Allow systray applet to run for multiple users ([#383](https://github.com/Antiz96/arch-update/pull/383)) - ([3b48326](https://github.com/Antiz96/arch-update/commit/3b483266a8cbd897c83674b8165828fd15a2e532)) by @Antiz96
+
+## [v3.12.3](https://github.com/Antiz96/arch-update/releases/tag/v3.12.3) - 2025-04-24
+
+### Fixes
+
+- Avoid collisions during parallel updates checks ([#381](https://github.com/Antiz96/arch-update/pull/381)) - ([6aa4e7c](https://github.com/Antiz96/arch-update/commit/6aa4e7c067283dcd086a259ab154e2e80c056444)) by @Antiz96
+
+### Miscellaneous
+
+- *(i18n)* Update translation files ([#382](https://github.com/Antiz96/arch-update/pull/382)) - ([0ee11b4](https://github.com/Antiz96/arch-update/commit/0ee11b44dfc63b223371975e91ccf989176ad476)) by @Antiz96
+
+## [v3.12.2](https://github.com/Antiz96/arch-update/releases/tag/v3.12.2) - 2025-04-22
+
+### Documentation
+
+- *(README)* Remove unnecessary sudo mentions ([#378](https://github.com/Antiz96/arch-update/pull/378)) - ([3ff6dc2](https://github.com/Antiz96/arch-update/commit/3ff6dc2d1f1c7fd1ae84c2da7159312b4fcefe29)) by @Integral-Tech
+- *(README-fr)* Remove unnecessary sudo mentions ([#379](https://github.com/Antiz96/arch-update/pull/379)) - ([fb9c61d](https://github.com/Antiz96/arch-update/commit/fb9c61dc41ea2a4c8d808ff5fcf3137e8446b642)) by @Antiz96
+
+## [v3.12.1](https://github.com/Antiz96/arch-update/releases/tag/v3.12.1) - 2025-04-22
+
+### Features
+
+- Add a lock file to avoid multiple parallel runs ([#377](https://github.com/Antiz96/arch-update/pull/377)) - ([a765374](https://github.com/Antiz96/arch-update/commit/a7653740be2a749bc4ea02350fadc196d0a8f08f)) by @Antiz96
+
+## [v3.12.0](https://github.com/Antiz96/arch-update/releases/tag/v3.12.0) - 2025-04-20
+
+### Features
+
+- Add the `-s / --services` option flag to check for services requiring a post upgrade restart ([#369](https://github.com/Antiz96/arch-update/pull/369)) - ([c3b7a9f](https://github.com/Antiz96/arch-update/commit/c3b7a9f39d37e1fccdbfe39b08db5ffe1afc853c)) by @Antiz96
+
+### Styling
+
+- *(man)* Add missing hyphen in options list ([#368](https://github.com/Antiz96/arch-update/pull/368)) - ([e4be478](https://github.com/Antiz96/arch-update/commit/e4be478a15f759e7c0f0170f885a159972bb1126)) by @Antiz96
+
+### Miscellaneous
+
+- *(i18n)* Update Swedish translation ([#375](https://github.com/Antiz96/arch-update/pull/375)) - ([10ac455](https://github.com/Antiz96/arch-update/commit/10ac4555f2457c5dced3343ff08508205247748a)) by @bittin
+- *(i18n)* Update German translation ([#374](https://github.com/Antiz96/arch-update/pull/374)) - ([5cd83ef](https://github.com/Antiz96/arch-update/commit/5cd83efc57fb5efcbc45749aa1be170511006734)) by @DeN-AlB
+- *(i18n)* Update Hungarian translation ([#373](https://github.com/Antiz96/arch-update/pull/373)) - ([f19d71f](https://github.com/Antiz96/arch-update/commit/f19d71fb815a50c64c908fa1151a8fea818bff89)) by @summoner001
+- *(i18n)* Update Chinese (simplified) translation ([#372](https://github.com/Antiz96/arch-update/pull/372)) - ([e329bcd](https://github.com/Antiz96/arch-update/commit/e329bcd2e803620da2a2e1a41a235a6320d0e198)) by @Carlson24
+- *(i18n)* Update French translation ([#370](https://github.com/Antiz96/arch-update/pull/370)) - ([5499ac4](https://github.com/Antiz96/arch-update/commit/5499ac41a538de1dc0df376ec4b18a047e669c8d)) by @Antiz96
+
 ## [v3.11.0](https://github.com/Antiz96/arch-update/releases/tag/v3.11.0) - 2025-04-10
 
 ### Features

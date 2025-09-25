@@ -5,12 +5,18 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # shellcheck disable=SC2154
+touch "${statedir}"/last_updates_check_{packages,aur,flatpak}
+
+# shellcheck disable=SC2154
+checkupdates_db_tmpdir=$(mktemp -d "${checkupdates_db_tmpdir_prefix}XXXXX")
+
+# shellcheck disable=SC2154
 if [ -z "${no_version}" ]; then
 	# shellcheck disable=SC2154
-	checkupdates > "${statedir}/last_updates_check_packages"
+	CHECKUPDATES_DB="${checkupdates_db_tmpdir}" checkupdates > "${statedir}/last_updates_check_packages"
 else
 	# shellcheck disable=SC2154
-	checkupdates | awk '{print $1}' > "${statedir}/last_updates_check_packages"
+	CHECKUPDATES_DB="${checkupdates_db_tmpdir}" checkupdates | awk '{print $1}' > "${statedir}/last_updates_check_packages"
 fi
 
 if [ -n "${aur_helper}" ]; then
@@ -40,24 +46,31 @@ if [ -n "${update_available}" ]; then
 	if [ -n "${notification_support}" ]; then
 		if ! diff "${statedir}/current_updates_check" "${statedir}/last_updates_check" &> /dev/null; then
 			update_number=$(wc -l "${statedir}/current_updates_check" | awk '{print $1}')
-			# shellcheck disable=SC2154
-			last_notif_id=$(cat "${tmpdir}/last_notif_id" 2> /dev/null)
-			if [ "${update_number}" -eq 1 ]; then
-				if [ -z "${last_notif_id}" ]; then
-					# shellcheck disable=SC2154
-					notify-send -p -i "${name}_updates-available-${tray_icon_style}" "${_name}" "$(eval_gettext "\${update_number} update available")" > "${tmpdir}/last_notif_id"
-				else
-					# shellcheck disable=SC2154
-					notify-send -p -r "${last_notif_id}" -i "${name}_updates-available-${tray_icon_style}" "${_name}" "$(eval_gettext "\${update_number} update available")" > "${tmpdir}/last_notif_id"
-				fi
 
-			else
-				if [ -z "${last_notif_id}" ]; then
-					notify-send -p -i "${name}_updates-available-${tray_icon_style}" "${_name}" "$(eval_gettext "\${update_number} updates available")" > "${tmpdir}/last_notif_id"
-				else
-					notify-send -p -r "${last_notif_id}" -i "${name}_updates-available-${tray_icon_style}" "${_name}" "$(eval_gettext "\${update_number} updates available")" > "${tmpdir}/last_notif_id"
-				fi
-			fi
+			# shellcheck disable=SC2154
+			last_notif_id=$(sed -n '1p' "${tmpdir}/notif_param" 2> /dev/null)
+
+			systemd-run --user --unit="${name}"-notification-"$(date +%Y%m%d-%H%M%S)" --quiet \
+				--setenv=DISPLAY="${DISPLAY}" \
+				--setenv=DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS}" \
+				--setenv=TEXTDOMAIN="${_name}" \
+				--setenv=TEXTDOMAINDIR="${TEXTDOMAINDIR}" \
+				--setenv=LANG="${LANG}" \
+				--setenv=LANGUAGE="${LANGUAGE}" \
+				--setenv=LC_ALL="${LC_ALL}" \
+				--setenv=LC_MESSAGES="${LC_MESSAGES}" \
+				--setenv=XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR}" \
+				--setenv=XDG_DATA_HOME="${XDG_DATA_HOME}" \
+				--setenv=XDG_DATA_DIRS="${XDG_DATA_DIRS}" \
+				--setenv=HOME="${HOME}" \
+				--setenv=update_number="${update_number}" \
+				--setenv=last_notif_id="${last_notif_id}" \
+				--setenv=_name="${_name}" \
+				--setenv=name="${name}" \
+				--setenv=tray_icon_style="${tray_icon_style}" \
+				--setenv=tmpdir="${tmpdir}" \
+				--setenv=desktop_file="${desktop_file}" \
+			 "${libdir}/notification.sh"
 		fi
 	fi
 else

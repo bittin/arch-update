@@ -32,7 +32,7 @@ Features:
 - Check for pacnew & pacsave files (and offers to process them if there are).
 - Check for pending kernel update requiring a reboot (and offers to do so if there's one).
 - Check for services requiring a post upgrade restart (and offers to do so if there are).
-- Support for `sudo`, `doas` & `run0`.
+- Support for `sudo`, `sudo-rs`, `doas` & `run0`.
 
 Optional support for:
 
@@ -51,7 +51,7 @@ Install the [arch-update](https://aur.archlinux.org/packages/arch-update "arch-u
 Install required dependencies:
 
 ```bash
-sudo pacman -S --needed pacman-contrib archlinux-contrib curl fakeroot htmlq diffutils hicolor-icon-theme python python-pyqt6 qt6-svg glib2
+sudo pacman -S --needed bash systemd pacman pacman-contrib archlinux-contrib curl fakeroot htmlq diffutils hicolor-icon-theme python python-pyqt6 qt6-svg glib2 xdg-utils
 ```
 
 Additional optional dependencies you might want or need:
@@ -61,8 +61,12 @@ Additional optional dependencies you might want or need:
 - [pikaur](https://aur.archlinux.org/packages/pikaur): AUR Packages support
 - [flatpak](https://archlinux.org/packages/extra/x86_64/flatpak/): Flatpak Packages support
 - [libnotify](https://archlinux.org/packages/extra/x86_64/libnotify/): Desktop notifications support on new available updates (see <https://wiki.archlinux.org/title/Desktop_notifications>)
-- [vim](https://archlinux.org/packages/extra/x86_64/vim/): Default merge program for pacdiff
+- [vim](https://archlinux.org/packages/extra/x86_64/vim/): Default diff program for pacdiff
+- [neovim](https://archlinux.org/packages/extra/x86_64/neovim/): Default diff program for pacdiff if `EDITOR=nvim`
 - [qt6-wayland](https://archlinux.org/packages/extra/x86_64/qt6-wayland/): Systray applet support on Wayland
+- [sudo](https://archlinux.org/packages/core/x86_64/sudo/): Privilege elevation
+- [sudo-rs](https://archlinux.org/packages/extra/x86_64/sudo-rs/): Privilege elevation
+- [opendoas](https://archlinux.org/packages/extra/x86_64/opendoas/): Privilege elevation
 
 Install required build dependencies:
 
@@ -75,15 +79,15 @@ Download the archive of the [latest stable release](https://github.com/Antiz96/a
 To install `arch-update`, go into the extracted / cloned directory and run the following commands:
 
 ```bash
-sudo make
-sudo make test
+make
+make test
 sudo make install
 ```
 
 Once the installation is complete, you may optionally clean up the directory of files generated during installation by running the following command:
 
 ```bash
-sudo make clean
+make clean
 ```
 
 To uninstall `arch-update`, go into the extracted / cloned directory and run the following command:
@@ -147,13 +151,15 @@ With [the systemd timer](#the-systemd-timer) enabled, checks for updates are aut
 
 ![check_for_updates](https://github.com/user-attachments/assets/efd190f5-4338-4204-a19b-0a6f138b4435)
 
-If there are new available updates, the systray icon shows a red circle and a desktop notification indicating the number of available updates is sent:
+If there are new available updates, the systray icon shows a red circle and a desktop notification indicating the number of available updates is sent. You can directly run Arch-Update from it or close / dismiss it thanks to the related click actions:
 
-![notif](https://github.com/user-attachments/assets/976a435f-db44-477a-b339-1b257639501a)
+![notif](https://github.com/user-attachments/assets/ce8c9229-9b36-484a-8561-bcb69b06310a)
 
 You can see the list of available updates from the menu by right-clicking the systray icon.  
 A dropdown menu displaying the number and the list of pending updates is dynamically created for each sources that have some (Packages, AUR, Flatpak).  
 A "All" dropdown menu gathering the number and the list of pending updates for all sources is dynamically created if at least 2 different sources have pending updates:
+
+*Clicking on the entry for a package opens the upstream project's URL in your web browser (except for Flatpak packages).*
 
 ![all](https://github.com/user-attachments/assets/798a4712-254b-470c-b83d-de2f3fcbdad4)
 
@@ -199,13 +205,13 @@ To prevent that, you can add a small delay to the systray applet startup using t
 - If you used `arch-update --tray --enable`, modify the `Exec=` line in the `arch-update-tray.desktop` file (which is under `~/.config/autostart/` by default), like so:
 
 ```text
-Exec=sh -c "sleep 3 && arch-update --tray"
+Exec=/bin/sh -c "sleep 3 && arch-update --tray"
 ```
 
 - If you used the `arch-update-tray.service` systemd service, run `systemctl --user edit --full arch-update-tray.service` and modify the `ExecStart=` line, like so:
 
 ```text
-ExecStart=sh -c "sleep 3 && arch-update --tray"
+ExecStart=/bin/sh -c "sleep 3 && arch-update --tray"
 ```
 
 - If you're using a standalone Window Manager or a Wayland Compositor, modify the command in your "auto-start" apps / your configuration file, like so:

@@ -1,4 +1,4 @@
-arch-update(1) ["Arch-Update 3.11.0" ["Manuel de Arch-Update"]]
+arch-update(1) ["Arch-Update 3.15.6" ["Manuel de Arch-Update"]]
 
 # NOM
 
@@ -24,7 +24,7 @@ Fonctionnalités :
 - Vérification des fichiers pacnew & pacsave (et propose de les traiters s'il y en a).
 - Vérification des mises à jour du noyau en attente nécessitant un redémarrage (et propose de le faire s'il y en a une).
 - Vérification des services nécessitant un redémarrage après mise à jour (et propose de le faire s'il y en a).
-- Support de `sudo`, `doas` et `run0`.
+- Support de `sudo`, `sudo-rs`, `doas` et `run0`.
 
 Support optionnel pour :
 
@@ -136,7 +136,7 @@ Pour éviter ceci, vous pouvez ajouter un léger délai au démarrage de l'apple
 
 ```
 [...]
-Exec=sh -c "sleep 3 && arch-update --tray"
+Exec=/bin/sh -c "sleep 3 && arch-update --tray"
 [...]
 ```
 
@@ -144,7 +144,7 @@ Exec=sh -c "sleep 3 && arch-update --tray"
 
 ```
 [...]
-ExecStart=sh -c "sleep 3 && arch-update --tray"
+ExecStart=/bin/sh -c "sleep 3 && arch-update --tray"
 [...]
 ```
 
@@ -196,7 +196,7 @@ Voir https://github.com/Vladimir-csp/xdg-terminal-exec?tab=readme-ov-file#config
 	Option invalide.
 
 *2*
-	Aucune commande d'élévation de privilège (`sudo`, `doas` ou `run0`) n'est installée ou celle définie dans le fichier de configuration `arch-update.conf` n'est pas disponible.
+	Aucune commande d'élévation de privilège (`sudo`, `sudo-rs`, `doas` ou `run0`) n'est installée ou celle définie dans le fichier de configuration `arch-update.conf` n'est pas disponible.
 
 *3*
 	Erreur lors du lancement de l'applet systray d'Arch-update.
@@ -239,6 +239,12 @@ Voir https://github.com/Vladimir-csp/xdg-terminal-exec?tab=readme-ov-file#config
 
 *16*
 	Erreur lors de la création des répertoires `statedir` et / ou `tmpdir`.
+
+*17*
+	Une autre instance d'Arch-Update est déjà en cours d'exécution.
+
+*18*
+	Erreur lors de l'exécution d'Arch-Update depuis l'action de la notification de bureau.
 
 # VOIR AUSSI
 

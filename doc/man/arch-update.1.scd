@@ -1,4 +1,4 @@
-arch-update(1) ["Arch-Update 3.11.0" ["Arch-Update Manual"]]
+arch-update(1) ["Arch-Update 3.15.6" ["Arch-Update Manual"]]
 
 # NAME
 
@@ -24,7 +24,7 @@ Features:
 - Check for pacnew & pacsave files (and offers to process them if there are).
 - Check for pending kernel update requiring a reboot (and offers to do so if there's one).
 - Check for services requiring a post upgrade restart (and offers to do so if there are).
-- Support for `sudo`, `doas` & `run0`.
+- Support for `sudo`, `sudo-rs`, `doas` & `run0`.
 
 Optional support for:
 
@@ -136,7 +136,7 @@ To prevent that, you can add a small delay to the systray applet startup using t
 
 ```
 [...]
-Exec=sh -c "sleep 3 && arch-update --tray"
+Exec=/bin/sh -c "sleep 3 && arch-update --tray"
 [...]
 ```
 
@@ -144,7 +144,7 @@ Exec=sh -c "sleep 3 && arch-update --tray"
 
 ```
 [...]
-ExecStart=sh -c "sleep 3 && arch-update --tray"
+ExecStart=/bin/sh -c "sleep 3 && arch-update --tray"
 [...]
 ```
 
@@ -196,7 +196,7 @@ See https://github.com/Vladimir-csp/xdg-terminal-exec?tab=readme-ov-file#configu
 	Invalid option.
 
 *2*
-	No privilege elevation command (`sudo`, `doas` or `run0`) is installed or the one set in the `arch-update.conf` configuration file isn't found.
+	No privilege elevation command (`sudo`, `sudo-rs`, `doas` or `run0`) is installed or the one set in the `arch-update.conf` configuration file isn't found.
 
 *3*
 	Error when launching the Arch-Update systray applet.
@@ -239,6 +239,12 @@ See https://github.com/Vladimir-csp/xdg-terminal-exec?tab=readme-ov-file#configu
 
 *16*
 	Error when creating the `statedir` and / or the `tmpdir` directories.
+
+*17*
+	Another instance of Arch-Update is already running.
+
+*18*
+	Error when running Arch-Update from the desktop notification action.
 
 # SEE ALSO
 

@@ -27,6 +27,10 @@ statedir="${XDG_STATE_HOME:-${HOME}/.local/state}/${name}"
 tmpdir="${TMPDIR:-/tmp}/${name}-${UID}"
 mkdir -p "${statedir}" "${tmpdir}" || exit 16
 
+# Define checkupdates temporary db dir prefix
+# shellcheck disable=SC2034
+checkupdates_db_tmpdir_prefix="${tmpdir}/checkupdates-"
+
 # Declare necessary parameters for translations
 # shellcheck disable=SC1091
 . gettext.sh
@@ -111,26 +115,28 @@ quit_msg() {
 }
 
 # Definition of the AUR helper to use (depending on if / which one is installed on the system and if it's not already defined in arch-update.conf) for the optional AUR packages support
-if [ -z "${no_aur}" ]; then
-	# shellcheck disable=SC2034
-	if [ -z "${aur_helper}" ]; then
-		if command -v paru > /dev/null; then
-			# shellcheck disable=SC2034
-			aur_helper="paru"
-		elif command -v yay > /dev/null; then
-			# shellcheck disable=SC2034
-			aur_helper="yay"
-		elif command -v pikaur > /dev/null; then
-			# shellcheck disable=SC2034
-			aur_helper="pikaur"
-		fi
-	else
-		if ! command -v "${aur_helper}" > /dev/null; then
-			warning_msg "$(eval_gettext "The \${aur_helper} AUR helper set for AUR packages support in the arch-update.conf configuration file is not found\n")"
-			unset aur_helper
+check_aur_helper() {
+	if [ -z "${no_aur}" ]; then
+		# shellcheck disable=SC2034
+		if [ -z "${aur_helper}" ]; then
+			if command -v paru > /dev/null; then
+				# shellcheck disable=SC2034
+				aur_helper="paru"
+			elif command -v yay > /dev/null; then
+				# shellcheck disable=SC2034
+				aur_helper="yay"
+			elif command -v pikaur > /dev/null; then
+				# shellcheck disable=SC2034
+				aur_helper="pikaur"
+			fi
+		else
+			if ! command -v "${aur_helper}" > /dev/null; then
+				warning_msg "$(eval_gettext "The \${aur_helper} AUR helper set for AUR packages support in the \${name}.conf configuration file is not found\n")"
+				unset aur_helper
+			fi
 		fi
 	fi
-fi
+}
 
 # Check if flatpak is installed for the optional Flatpak support
 if [ -z "${no_flatpak}" ]; then
@@ -145,39 +151,45 @@ if [ -z "${no_notification}" ]; then
 fi
 
 # Definition of the elevation command to use (depending on which one is installed on the system and if it's not already defined in arch-update.conf)
-if [ -z "${su_cmd}" ]; then
-	if command -v sudo > /dev/null; then
-		su_cmd="sudo"
-	elif command -v doas > /dev/null; then
-		su_cmd="doas"
-	elif command -v run0 > /dev/null; then
-		su_cmd="run0"
+check_su_cmd () {
+	if [ -z "${su_cmd}" ]; then
+		if command -v sudo > /dev/null; then
+			su_cmd="sudo"
+		elif command -v sudo-rs > /dev/null; then
+			su_cmd="sudo-rs"
+		elif command -v doas > /dev/null; then
+			su_cmd="doas"
+		elif command -v run0 > /dev/null; then
+			su_cmd="run0"
+		else
+			error_msg "$(eval_gettext "A privilege elevation command is required (sudo, sudo-rs, doas or run0)\n")" && quit_msg
+			exit 2
+		fi
 	else
-		error_msg "$(eval_gettext "A privilege elevation command is required (sudo, doas or run0)\n")" && quit_msg
-		exit 2
-	fi
-else
-	if ! command -v "${su_cmd}" > /dev/null; then
-		error_msg "$(eval_gettext "The \${su_cmd} command set for privilege escalation in the arch-update.conf configuration file is not found\n")" && quit_msg
-		exit 2
-	fi
-fi
-
-# Definition of the diff program to use (if it is set in the arch-update.conf configuration file)
-if [ -n "${diff_prog}" ]; then
-	if ! command -v "${diff_prog}" > /dev/null; then
-		error_msg "$(eval_gettext "The \${diff_prog} editor set for visualizing / editing differences of pacnew files in the arch-update.conf configuration file is not found\n")" && quit_msg
-		exit 15
-	else
-		if [ "${su_cmd}" == "sudo" ]; then
-			diff_prog_opt=("DIFFPROG=${diff_prog}")
-		elif [ "${su_cmd}" == "doas" ]; then
-			diff_prog_opt=("env" "DIFFPROG=${diff_prog}")
-		elif [ "${su_cmd}" == "run0" ]; then
-			diff_prog_opt+=("--setenv=DIFFPROG=${diff_prog}")
+		if ! command -v "${su_cmd}" > /dev/null; then
+			error_msg "$(eval_gettext "The \${su_cmd} command set for privilege escalation in the \${name}.conf configuration file is not found\n")" && quit_msg
+			exit 2
 		fi
 	fi
-fi
+}
+
+# Definition of the diff program to use (if it is set in the arch-update.conf configuration file)
+check_diff_prog () {
+	if [ -n "${diff_prog}" ]; then
+		if ! command -v "${diff_prog%% *}" > /dev/null; then
+			error_msg "$(eval_gettext "The \${diff_prog} editor set for visualizing / editing differences of pacnew files in the \${name}.conf configuration file is not found\n")" && quit_msg
+			exit 15
+		else
+			if [ "${su_cmd}" == "sudo" ] || [ "${su_cmd}" == "sudo-rs" ]; then
+				diff_prog_opt=("DIFFPROG=${diff_prog}")
+			elif [ "${su_cmd}" == "doas" ]; then
+				diff_prog_opt=("env" "DIFFPROG=${diff_prog}")
+			elif [ "${su_cmd}" == "run0" ]; then
+				diff_prog_opt+=("--setenv=DIFFPROG=${diff_prog}")
+			fi
+		fi
+	fi
+}
 
 # Definition of the icon_up-to-date function: Change tray icon to "up to date"
 icon_up-to-date() {
@@ -190,3 +202,12 @@ icon_updates-available() {
 	# shellcheck disable=SC2154
 	echo "${name}_updates-available-${tray_icon_style}" > "${statedir}/tray_icon"
 }
+
+# Definition of commands to always run on exit (e.g. cleanup of files / dirs which have no purpose being kept)
+cleanup() {
+	# shellcheck disable=SC2154
+	[ -d "${checkupdates_db_tmpdir}" ] && rm -rf "${checkupdates_db_tmpdir}"
+	[ -n "${kernel_reboot}" ] && tput cnorm
+}
+
+trap cleanup EXIT

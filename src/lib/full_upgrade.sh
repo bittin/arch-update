@@ -4,6 +4,16 @@
 # https://github.com/Antiz96/arch-update
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# Hold the lockfile to avoid multiple parallel runs
+# shellcheck disable=SC2154
+exec {fd_upgrade}> "${TMPDIR:-/tmp}/${name}.lock"
+
+# Exit if the lockfile is already hold
+if ! flock -n "${fd_upgrade}"; then
+	error_msg "$(eval_gettext "There's already a running instance of \${_name}\n")" && quit_msg
+	exit 17
+fi
+
 # Source the "list_packages" library which displays the list of packages available for updates
 # shellcheck source=src/lib/list_packages.sh disable=SC2154
 source "${libdir}/list_packages.sh"
@@ -38,8 +48,8 @@ source "${libdir}/packages_cache.sh"
 # shellcheck source=src/lib/pacnew_files.sh
 source "${libdir}/pacnew_files.sh"
 
-# Source the "kernel_reboot" library which checks if there's a pending kernel update requiring a reboot to be applied (unless running from WSL)
-if [ -z "${WSL_DISTRO_NAME}" ]; then
+# Source the "kernel_reboot" library which checks if there's a pending kernel update requiring a reboot to be applied (unless the "kernel-modules-hook" package is installed or we're running from a container)
+if ! pacman -Q kernel-modules-hook &> /dev/null && ! systemd-detect-virt --container --quiet; then
 	# shellcheck source=src/lib/kernel_reboot.sh
 	source "${libdir}/kernel_reboot.sh"
 fi
