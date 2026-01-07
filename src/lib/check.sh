@@ -30,7 +30,29 @@ if [ -n "${aur_helper}" ]; then
 fi
 
 if [ -n "${flatpak_support}" ]; then
-	flatpak update | sed -n '/^ 1./,$p' | awk '{print $2}' | grep -v '^$' | sed '$d' > "${statedir}/last_updates_check_flatpak"
+	flatpak update --appstream > /dev/null
+
+	mapfile -t flatpak_packages < <(flatpak remote-ls --updates --columns=name,version,application | tr -s '\t' ' ')
+	mapfile -t flatpak_mask < <(flatpak mask | tr -d ' ')
+
+	if [ "${#flatpak_mask[@]}" -gt 0 ]; then
+		mapfile -t flatpak_packages < <(
+			for application in "${flatpak_packages[@]}"; do
+				app_id=$(awk '{print $3}' <<< "${application}")
+				for pattern in "${flatpak_mask[@]}"; do
+					# shellcheck disable=SC2053
+					[[ "${app_id}" == ${pattern} ]] && continue 2
+				done
+				echo "${application}"
+			done
+		)
+	fi
+
+	if [ -z "${no_version}" ]; then
+		printf "%s\n" "${flatpak_packages[@]}" | awk '{print $1,$2}' | sed '/^[[:space:]]*$/d' > "${statedir}/last_updates_check_flatpak"
+	else
+		printf "%s\n" "${flatpak_packages[@]}" | awk '{print $1}' | sed '/^[[:space:]]*$/d' > "${statedir}/last_updates_check_flatpak"
+	fi
 fi
 
 sed -i '/^\s*$/d' "${statedir}"/last_updates_check_{packages,aur,flatpak}
