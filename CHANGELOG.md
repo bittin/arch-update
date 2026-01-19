@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v3.17.7](https://github.com/Antiz96/arch-update/releases/tag/v3.17.7) - 2026-01-12
+
+### Fixes
+
+- *(notification)* Set app icon with the new libnotify `-n / --app-name` option ([#492](https://github.com/Antiz96/arch-update/pull/492)) - ([b463cb8](https://github.com/Antiz96/arch-update/commit/b463cb8a53c58e4c8fa76aed41b38c4a1370eafc)) by @Antiz96
+
+## [v3.17.6](https://github.com/Antiz96/arch-update/releases/tag/v3.17.6) - 2026-01-11
+
+### Fixes
+
+- *(flatpak)* Make masked patterns detection logic more robust ([#490](https://github.com/Antiz96/arch-update/pull/490)) - ([1d50275](https://github.com/Antiz96/arch-update/commit/1d50275e10df94da220a339a4c837b15d7122f7b)) by @Antiz96
+
+### Miscellaneous
+
+- *(i18n)* Update translation files ([#491](https://github.com/Antiz96/arch-update/pull/491)) - ([8ca1e95](https://github.com/Antiz96/arch-update/commit/8ca1e95ccfa7f6a7d28d5de695c419f7f768963b)) by @Antiz96
+
+## [v3.17.5](https://github.com/Antiz96/arch-update/releases/tag/v3.17.5) - 2026-01-09
+
+### Features
+
+- *(news)* Request compressed curl response ([#488](https://github.com/Antiz96/arch-update/pull/488)) - ([28aeb74](https://github.com/Antiz96/arch-update/commit/28aeb742d18034cbd9393482c621c01e2408b229)) by @Antiz96
+
+### Fixes
+
+- *(news)* Remove the preliminary curl request ([#487](https://github.com/Antiz96/arch-update/pull/487)) - ([a5be500](https://github.com/Antiz96/arch-update/commit/a5be5002b18a94853dcae383703a6d5fd24b2286)) by @Antiz96
+
+### Miscellaneous
+
+- *(deps)* Update actions/checkout action to v6 ([#484](https://github.com/Antiz96/arch-update/pull/484)) - ([b38c6d9](https://github.com/Antiz96/arch-update/commit/b38c6d920afff1bf4e2ce3da87acf5dca66472a2)) by @renovate[bot]
+- *(renovate)* Add assignees ([#485](https://github.com/Antiz96/arch-update/pull/485)) - ([e71c99b](https://github.com/Antiz96/arch-update/commit/e71c99b34f6267fcdd7959401b595d215f6b2e40)) by @Antiz96
+- Configure Renovate ([#483](https://github.com/Antiz96/arch-update/pull/483)) - ([b722817](https://github.com/Antiz96/arch-update/commit/b722817157adb74bdb50dd7de27f4cdb577ead6e)) by @renovate[bot]
+
 ## [v3.17.4](https://github.com/Antiz96/arch-update/releases/tag/v3.17.4) - 2025-12-13
 
 ### Fixes
