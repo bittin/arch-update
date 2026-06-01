@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v3.19.7](https://github.com/Antiz96/arch-update/releases/tag/v3.19.7) - 2026-05-26
+
+### Features
+
+- *(i18n)* Add Bulgarian translation ([#606](https://github.com/Antiz96/arch-update/pull/606)) - ([ca1302b](https://github.com/Antiz96/arch-update/commit/ca1302b9cf09690b8857d210cc113abee4f21582)) by @compulsions
+
+## [v3.19.6](https://github.com/Antiz96/arch-update/releases/tag/v3.19.6) - 2026-05-26
+
+### Miscellaneous
+
+- *(i18n)* Fix Spanish translation formality ([#603](https://github.com/Antiz96/arch-update/pull/603)) - ([3bc2721](https://github.com/Antiz96/arch-update/commit/3bc27218a7a38fb74fb460f291ddc0c0af17a9fe)) by @djgs01
+- *(i18n)* Fix Catalan yes/no prompts ([#605](https://github.com/Antiz96/arch-update/pull/605)) - ([5c869bd](https://github.com/Antiz96/arch-update/commit/5c869bd4fbb61456df84254bc1882e16c975da20)) by @dtalens
+
+## [v3.19.5](https://github.com/Antiz96/arch-update/releases/tag/v3.19.5) - 2026-05-25
+
+### Features
+
+- *(i18n)* Add Catalan translation ([#602](https://github.com/Antiz96/arch-update/pull/602)) - ([ff1eea8](https://github.com/Antiz96/arch-update/commit/ff1eea88bcab6003ca15a51a111f3c0c72066e45)) by @dtalens
+
+### Miscellaneous
+
+- Update sponsor links ([#597](https://github.com/Antiz96/arch-update/pull/597)) - ([146b3e3](https://github.com/Antiz96/arch-update/commit/146b3e370c27819a627917463df92dd2c3508931)) by @Antiz96
+
+## [v3.19.4](https://github.com/Antiz96/arch-update/releases/tag/v3.19.4) - 2026-05-07
+
+### Features
+
+- *(i18n)* Add Belarusian translation ([#594](https://github.com/Antiz96/arch-update/pull/594)) - ([3937ee9](https://github.com/Antiz96/arch-update/commit/3937ee9c4b4ffbc4e512adc7c4e5f314397fd7a6)) by @lasaczka
+
 ## [v3.19.3](https://github.com/Antiz96/arch-update/releases/tag/v3.19.3) - 2026-04-26
 
 ### Fixes
